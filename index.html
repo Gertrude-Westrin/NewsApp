@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>News App</title>
+</head>
+<body>
+    <div id="vue-app" class="container-fluid">
+        <!--this is where I will have the news info and everything to do with the news app-->
+        <div class="container">
+            <!--header container-->
+            <h1 class="mx-auto d-flex justify-content-center display-4">GET INFORMED</h1>
+            <p class="lead d-flex justify-content-center">
+                News Curated Just For You! Search what you want to know about.
+              </p>
+        </div>
+        <form action="">
+            <!--container with filters to select-->
+            <div class="d-flex justify-content-center d-block p-3 bg-dark text-dark form-row ">
+                <select class="form-group col-md-3 ml-3" name="countryOptions" @change="countryChoice($event)" v-model="selectedCountry">
+                    <option disabled value="">Select a country</option>
+                    <option v-for="country in countries" v-bind:value="country.value" >{{ country.country }} </option> 
+                </select>
+    
+                <select class="form-group col-md-3 ml-3 " name="categoryOptions" @change="categoryChoice($event)"  v-model="selectedCategory">
+                    <option disabled value=""> Select a category</option>
+                    <option v-for="category in categories" v-bind:value="category.value" >{{ category.category }} </option> 
+                </select>
+    
+                <select class="form-group col-md-2 ml-3 " name="articleOptions" @change="articleNumberChoice($event)"  v-model="selectedNumberOfArticles">
+                    <option disabled value=""> Display </option>
+                    <option v-for="articles in numberOfArticles" v-bind:value="articles.value" >{{ articles.display}}</option>     
+                </select>
+    
+                <button v-on:click="displayNews" type="button" class="btn btn-outline-danger form-group col-md-1 ml-3">Search</button>
+            </div>
+        </form>
+            <div v-for="news in newsArticles" class="card mb-3 border border-danger shadow-lg p-3 mb-5 bg-white rounded mw-100 mx-auto" style="max-width: 540px;">
+                <!--news card-->
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img v-bind:src="news.urlToImage" class="card-img mw-100" alt="news image">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{news.title}}</h5>
+                      <p class="card-text">{{news.description}}</p>
+                      <a :href="news.url" >Read more</a>
+                    </div>
+                  </div>
+                </div>
+              </div>     
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="/src/main.js"></script>
+</body>
+</html>
